@@ -1,5 +1,5 @@
 import random
-
+import Spell
 
 def choose_next_step(spieler, enemy):
     player_choice = input(
@@ -28,13 +28,12 @@ def choose_next_step(spieler, enemy):
 
 def encounter_enemy(spieler, enemy):
     print("Du triffst auf einen Gegner!")
-    player_choice = input("Was möchtest Du tun?\n1: Angreifen\n2: Fliehen\n> ")
+    player_choice = input("Was möchtest Du tun?\n1: Kämpfen\n 2: Fliehen\n > ")
     if player_choice == "1":
         print("Du greifst an.")
         fight(spieler, enemy)
     elif player_choice == "2":
-        print("Du fliehst.")
-        spieler.fight_state = False
+        print("Du versuchst zu fliehen.")
     else:
         print("Bitte wähle eine der Optionen aus.")
         encounter_enemy(spieler, enemy)
@@ -52,6 +51,20 @@ def encounter_treasure():
         print("Bitte wähle eine der Optionen aus.")
         encounter_treasure()
 
+def choose_first_spell(spieler):
+    choosen_spell = input("Welchen Zauber möchtest Du wählen?\n1: Feuerball\n2: Frostschock\n3: Blitzschlag\n> ")
+    if choosen_spell == "1":
+        spieler.spell_list.append(Spell.all_fire_spells[0])
+        print("Du hast einen neuen Zauber erlernt: " + Spell.all_fire_spells[0].name + "\n")
+    elif choosen_spell == "2":
+        spieler.spell_list.append(Spell.all_ice_spells[0])
+        print("Du hast einen neuen Zauber erlernt: " + Spell.all_ice_spells[0].name + "\n")
+    elif choosen_spell == "3":
+        spieler.spell_list.append(Spell.all_lightning_spells[0])
+        print("Du hast einen neuen Zauber erlernt: " + Spell.all_lightning_spells[0].name + "\n")
+    else:
+        print("Bitte wähle einen Zauber aus.")
+        choose_first_spell(spieler)
 
 def chance_for_encounter_enemy(spieler, enemy):
     encounter_chance = random.randrange(0, 2, 1)
@@ -70,18 +83,23 @@ def fight(spieler, enemy):
     print("******* Fight *******")
     while spieler.fight_state:
         player_choice = input(
-            "Was möchtest Du tun?\n1: Angreifen\n2: Zauber\n3: Fliehen\n> ")
+            "Was möchtest Du tun?\n1: Nahkampfangreiff\n2: Zauber Wirken\n> ")
         if player_choice == "1":
-            calc_init(spieler, enemy)
+            calc_init(spieler, enemy, spieler.attack)
             print(spieler.name)
         elif player_choice == "2":
-            print("Du wirfst einen Zauber.")
-        elif player_choice == "3":
-            print("Du fliehst.")
-            fight_state = False
+            print("Zauber wirken")
+            spell_dmfchoose_spell(spieler, enemy)
         else:
             print("Bitte wähle eine der Optionen aus.")
             fight(spieler, enemy)
+
+
+def choose_spell(spieler, gegner):
+    print("Welchen Zauber möchtest Du wirken?")
+    for spell in spieler.spell_list:
+        print("> " + spell.name)
+    choosen_spell = input("> ")
 
 
 def calc_init(spieler, gegner):

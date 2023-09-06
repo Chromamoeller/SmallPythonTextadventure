@@ -1,6 +1,6 @@
 import random
 class Player:
-    def __init__(self, name, current_hp, max_hp, current_mp, max_mp, credit, attack, initiative, defense, magic, items,fight_state):
+    def __init__(self, name, current_hp, max_hp, current_mp, max_mp, credit, attack, initiative, defense, spell_list, items,fight_state):
         self.name = name
         self.current_hp = current_hp
         self.max_hp = max_hp
@@ -10,7 +10,7 @@ class Player:
         self.attack = attack
         self.initiative = initiative
         self.defense = defense
-        self.magic = magic
+        self.spell_list = spell_list
         self.items = items
         self.fight_state = fight_state
 
