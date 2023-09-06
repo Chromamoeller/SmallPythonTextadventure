@@ -89,7 +89,6 @@ def fight(spieler, enemy):
             print(spieler.name)
         elif player_choice == "2":
             print("Zauber wirken")
-            spell_dmfchoose_spell(spieler, enemy)
         else:
             print("Bitte wähle eine der Optionen aus.")
             fight(spieler, enemy)
